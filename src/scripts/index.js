@@ -1,6 +1,7 @@
 import '../styles/normalize.scss';
 import '../styles/style.scss';
 import PinyinConverter from './PinyinConverter';
+import $ from 'jquery';
 
 const log = console.log.bind(console);
 
@@ -48,30 +49,25 @@ function initForm() {
       { name: '全小写', value: 'lower' },
     ],
   });
-  // let html = '<label>选择模式:以"刘德华"为例</label>';
-  // const modes = [
-  //   'liu de hua',
-  //   'liu dehua',
-  //   'dehua liu',
-  //   'de hua liu',
-  //   'dhliu',
-  //   'liudh',
-  //   'ldh',
-  //   'dhl',
-  // ];
-  // const modeStr = modes.map(m => `
-  //       <div>
-  //         <input type="radio" id="${m}" name="drone" value="${m}" />
-  //         <label for="${m}">${m}</label>
-  //       </div>`).join(' ');
-  // html += modeStr;
-  // modeSelector.innerHTML = html;
+}
 
-  // let modeSelector = document.querySelector('.mode-selector')
+function initBtn() {
+  $('.btn-go').click(() => {
+    const mode = $('.mode-selector input:checked').val();
+    const letterMode = $('.letter-mode-selector input:checked').val();
+    const input = $('#input').val();
+    log({ mode, letterMode, input });
+    const p = new PinyinConverter(input);
+    const results = p.go(mode, letterMode);
+    log(results);
+    $('#output').val(results.join('\n'));
+  });
 }
 
 function main() {
   log('ready');
   initForm();
+  initBtn();
 }
-main();
+$(document).ready(main);
+// main();

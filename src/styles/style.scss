@@ -1,5 +1,9 @@
 html {
   body {
-    .wrapper {}
+    .wrapper {
+      width: 80%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
   }
 }

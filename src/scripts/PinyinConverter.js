@@ -3,7 +3,7 @@
 // const pinyin = require('pinyin');
 import pinyin from 'pinyin';
 
-// const log = console.log.bind(console);
+const log = console.log.bind(console);
 function capitalize(str) {
   const clone = str;
   return clone.replace(/\b\w/g, c => c.toUpperCase());
@@ -18,7 +18,7 @@ class PininConverter {
 
   split() {
     if (this.text) {
-      this.words = this.text.replace(/^\s+|\s+$/g, '').split(/\s+/);
+      this.words = this.text.replace(/^\s+|\s+$/g, '').split(/[,\s]+/);
       return this.words;
     }
     return false;
@@ -103,8 +103,8 @@ class PininConverter {
   // lower
   // Capital
 
-
   go(mode = 'liu dehua', letter = 'capital') {
+    // log('inside', { mode, letter });
     return this.getAll(mode, letter);
   }
 }
