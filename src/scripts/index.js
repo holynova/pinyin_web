@@ -91,6 +91,7 @@ function initBtn() {
     }
     convert();
   });
+  $('#input').blur(convert);
 }
 
 function main() {
