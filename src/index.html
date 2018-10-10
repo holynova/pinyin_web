@@ -10,19 +10,31 @@
 
 <body>
   <div class="wrapper">
+    <!-- <title>人名转拼音</title> -->
     <h1>人名转拼音</h1>
-    <form>
-      <fieldset class="letter-mode-selector">
-      </fieldset>
-      <fieldset class='mode-selector'>
-      </fieldset>
+    <form class="mode">
+      <div class="left">
+        <fieldset class="letter-mode-selector">
+        </fieldset>
+      </div>
+
+      <div class="right">
+        <fieldset class='mode-selector'>
+        </fieldset>
+      </div>
     </form>
     <!-- <p>脚手架创建成功</p> -->
     <button class="btn-go">转换</button>
-    <p>输入</p>
-    <textarea name="input" id="input" cols="30" rows="10">刘德华,张国荣,吕洞宾</textarea>
-    <p>输出</p>
-    <textarea name="output" id="output" cols="30" rows="10"></textarea>
+    <div class="io">
+      <div class="left">
+        <p>输入(用空格,回车,英文逗号来分隔名字)</p>
+        <textarea name="input" id="input" cols="30" rows="10">刘德华,张国荣,吕洞宾</textarea>
+      </div>
+      <div class="right">
+        <p>输出</p>
+        <textarea name="output" id="output" cols="30" rows="10"></textarea>
+      </div>
+    </div>
   </div>
 </body>
 

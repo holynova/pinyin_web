@@ -11,14 +11,14 @@ function genRadioGroup(data) {
   const optionsStr = options.map((o) => {
     const { name, value, checked } = o;
     return `
-        <div>
+        <div class='option' >
           <input 
             type="radio" id="${value}" name="${fieldName}" value="${value}"  
             ${checked ? 'checked' : ''} />
           <label for="${value}">${name}</label>
         </div>`;
   }).join('');
-  parent.innerHTML = `<label>${title}</label>${optionsStr}`;
+  parent.innerHTML = `<label class='group-title' >${title}</label>${optionsStr}`;
 }
 
 function initForm() {
@@ -28,14 +28,14 @@ function initForm() {
     parent: modeSelector,
     title: '选择模式:以"刘德华"为例',
     options: [
-      { name: 'liu dehua', value: 'liu dehua', checked: true },
-      { name: 'liu de hua', value: 'liu de hua' },
-      { name: 'dehua liu', value: 'dehua liu' },
-      { name: 'de hua liu', value: 'de hua liu' },
-      { name: 'dhliu', value: 'dhliu' },
-      { name: 'liudh', value: 'liudh' },
-      { name: 'ldh', value: 'ldh' },
-      { name: 'dhl', value: 'dhl' },
+      { name: 'Liu Dehua', value: 'liu dehua', checked: true },
+      { name: 'Liu De Hua', value: 'liu de hua' },
+      { name: 'Dehua Liu', value: 'dehua liu' },
+      { name: 'De Hua Liu', value: 'de hua liu' },
+      { name: 'Dhliu', value: 'dhliu' },
+      { name: 'Liudh', value: 'liudh' },
+      { name: 'Ldh', value: 'ldh' },
+      { name: 'Dhl', value: 'dhl' },
     ],
   });
 
@@ -51,16 +51,45 @@ function initForm() {
   });
 }
 
+function capitalize(str) {
+  const clone = str;
+  return clone.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+}
+
+
+function convert() {
+  const mode = $('.mode-selector input:checked').val();
+  const letterMode = $('.letter-mode-selector input:checked').val();
+  const input = $('#input').val();
+  // log({ mode, letterMode, input });
+  const p = new PinyinConverter(input);
+  const results = p.go(mode, letterMode);
+  // log(results);
+  $('#output').val(results.join('\n'));
+}
+
 function initBtn() {
-  $('.btn-go').click(() => {
-    const mode = $('.mode-selector input:checked').val();
+  $('.btn-go').click(convert);
+  $('.mode-selector').change(convert);
+  $('.letter-mode-selector').change(() => {
+    // 将选项的字母也改成大小写格式
     const letterMode = $('.letter-mode-selector input:checked').val();
-    const input = $('#input').val();
-    log({ mode, letterMode, input });
-    const p = new PinyinConverter(input);
-    const results = p.go(mode, letterMode);
-    log(results);
-    $('#output').val(results.join('\n'));
+    if (letterMode === 'lower') {
+      $('.mode-selector label').each(function () {
+        $(this).text($(this).text().toLowerCase());
+      });
+    } else if (letterMode === 'upper') {
+      $('.mode-selector label').each(function () {
+        $(this).text($(this).text().toUpperCase());
+      });
+    } else {
+      $('.mode-selector label').each(function () {
+        const text = $(this).text();
+        // log(capitalize(text));
+        $(this).text(capitalize(text));
+      });
+    }
+    convert();
   });
 }
 
@@ -69,5 +98,7 @@ function main() {
   initForm();
   initBtn();
 }
+
+
 $(document).ready(main);
 // main();

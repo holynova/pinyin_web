@@ -4,6 +4,45 @@ html {
       width: 80%;
       max-width: 600px;
       margin: 0 auto;
+
+      .mode {
+        display: flex;
+        width: 100%;
+
+        .left,
+        .right {
+          flex: 1;
+        }
+
+        .group-title {
+          font-weight: bold;
+          line-height: 2;
+        }
+
+        .option {
+          line-height: 2;
+        }
+
+        // .mode-selector,
+        // .letter-mode-selector {
+        //   flex: 1;
+        //   width: 50%;
+
+        // }
+      }
+
+      .io {
+        display: flex;
+
+        .left,
+        .right {
+          flex: 1;
+        }
+
+        textarea {
+          width: 90%;
+        }
+      }
     }
   }
 }

@@ -6,7 +6,8 @@ import pinyin from 'pinyin';
 const log = console.log.bind(console);
 function capitalize(str) {
   const clone = str;
-  return clone.replace(/\b\w/g, c => c.toUpperCase());
+  return clone.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+  // return clone.replace(/\b\w/g, c => c.toUpperCase());
 }
 
 class PininConverter {
