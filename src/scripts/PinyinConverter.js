@@ -1,8 +1,11 @@
 
 // const pinyinlite = require('pinyinlite');
 // const pinyin = require('pinyin');
-import pinyin from 'pinyin';
+// import pinyin from 'pinyin';
+import pinyin4js from 'pinyin4js'
+  ;
 
+// const { PinyinHelper, PinyinFormat } = pinyin4js;
 const log = console.log.bind(console);
 function capitalize(str) {
   const clone = str;
@@ -48,10 +51,13 @@ class PininConverter {
   convertWord(word, mode = 'liu dehua', letter = 'capital') {
     let result = '';
     // let charArr = pinyinlite(word).map(arr => arr[0])
-    const charArr = pinyin(word, {
-      style: pinyin.STYLE_NORMAL,
-    }).map(item => item[0]);
+    // const charArr = pinyin(word, {
+    //   style: pinyin.STYLE_NORMAL,
+    // }).map(item => item[0]);
+
+    const charArr = PinyinHelper.convertToPinyinString(word, ',', PinyinFormat.WITHOUT_TONE).split(',');
     // log('charArr', JSON.stringify(charArr, null, 2))
+
     const family = charArr.shift();
     const rest = charArr;
     mode = mode.toLowerCase();
